@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Data
@@ -29,6 +30,8 @@ public class Blog {
     private String content;
 
     @JsonFormat(shape = Shape.STRING, pattern = "DD-MM-YY")
+    @CreationTimestamp
+    @Column(updatable = false)
     private Date createdAt;
 
     @ManyToOne

@@ -8,6 +8,6 @@ public interface BlogService {
 
     List<Blog> getAllBlogs();
     Blog getBlogById(int id);
-
     Blog createBlog(Blog blog, String email);
+    Blog deleteBlog(int id);
 }
