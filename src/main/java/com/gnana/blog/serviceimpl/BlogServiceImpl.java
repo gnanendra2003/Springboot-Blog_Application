@@ -31,7 +31,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog createBlog(Blog blog, String email) {
-        User user = userRepository.findById(email)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
         blog.setUser(user);
         return blogRepository.save(blog);

@@ -5,6 +5,7 @@ import java.sql.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,6 +36,7 @@ public class Blog {
     private Date createdAt;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
 }
