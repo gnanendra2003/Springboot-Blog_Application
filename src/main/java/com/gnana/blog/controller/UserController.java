@@ -14,13 +14,13 @@ public class UserController {
 
     private UserService userService;
 
-    @PostMapping("/users")
+    @PostMapping("/register")
     public ResponseEntity<ResponseStructure<User>> registerUser(@RequestBody User user){
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseStructure.createResponse(HttpStatus.CREATED.value(),
                 "User created with email: "+user.getEmail(), userService.registerUser(user)));
     }
     @GetMapping("/users")
-    public ResponseEntity<ResponseStructure<User>> findByEmail(String email){
+    public ResponseEntity<ResponseStructure<User>> findByEmail(@RequestBody String email){
         return ResponseEntity.status(HttpStatus.FOUND).body(ResponseStructure.createResponse(HttpStatus.FOUND.value(),
                 "User found with email: "+email, userService.findByEmail(email)));
     }
