@@ -10,6 +10,7 @@ import com.gnana.blog.service.BlogService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,16 +32,18 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog createBlog(Blog blog, String email) {
-        User user = userRepository.findByEmail(email)
+        User user = userRepository.findById(email)
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
         blog.setUser(user);
         return blogRepository.save(blog);
     }
 
+    @Override
     public Blog updateBlog(Blog blog){
         return blogRepository.findById(blog.getId()).map( oldBlog -> {
             oldBlog.setTitle(blog.getTitle());
             oldBlog.setContent(blog.getContent());
+            oldBlog.setUpdatedAt(new Date());
             return oldBlog;
         }).orElseThrow(() -> new BlogNotFoundException("Blog not found by id: "+blog.getId()));
     }

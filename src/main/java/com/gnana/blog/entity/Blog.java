@@ -1,6 +1,6 @@
 package com.gnana.blog.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -34,6 +34,9 @@ public class Blog {
     @CreationTimestamp
     @Column(updatable = false)
     private Date createdAt;
+
+    @JsonFormat(shape = Shape.STRING, pattern = "DD-MM-YY")
+    private Date updatedAt;
 
     @ManyToOne
     @JsonIgnore

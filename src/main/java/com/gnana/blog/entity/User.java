@@ -16,12 +16,10 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
     private String email;
-
+    @Column(nullable = false)
     private String password;
+    private String name;
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Blog> blogs;
