@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(HttpMethod.GET,"/blogs/**")
                                 .permitAll()
+                                .requestMatchers(HttpMethod.POST, "/blogs").authenticated()
                                 .requestMatchers(HttpMethod.POST,"/register/**")
                                 .permitAll()
                                 .anyRequest()

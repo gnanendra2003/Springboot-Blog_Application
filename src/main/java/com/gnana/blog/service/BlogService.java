@@ -6,9 +6,10 @@ import java.util.List;
 
 public interface BlogService {
 
-    List<Blog> getAllBlogs();
+//    List<Blog> getAllBlogs();
     Blog getBlogById(int id);
     Blog createBlog(Blog blog, String email);
     Blog deleteBlog(int id);
     Blog updateBlog(Blog blog);
+    List<Blog> findBlogs(int page, int size);
 }

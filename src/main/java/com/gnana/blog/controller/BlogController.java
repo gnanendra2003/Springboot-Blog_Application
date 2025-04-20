@@ -15,12 +15,12 @@ import java.util.List;
 public class BlogController {
     private final BlogService blogService;
 
-    @GetMapping("/blogs")
-    public ResponseEntity<ResponseStructure<List<Blog>>> getAllBlogs(){
-        return ResponseEntity
-                .status(HttpStatus.FOUND)
-                .body(ResponseStructure.createResponse(HttpStatus.FOUND.value(),"Blogs found successfully",blogService.getAllBlogs()));
-    }
+//    @GetMapping("/blogs")
+//    public ResponseEntity<ResponseStructure<List<Blog>>> getAllBlogs(){
+//        return ResponseEntity
+//                .status(HttpStatus.FOUND)
+//                .body(ResponseStructure.createResponse(HttpStatus.FOUND.value(),"Blogs found successfully",blogService.getAllBlogs()));
+//    }
     @GetMapping("/blogs/{id}")
     public ResponseEntity<ResponseStructure<Blog>> getBlogById(@PathVariable int id){
         return ResponseEntity
@@ -43,5 +43,11 @@ public class BlogController {
     public ResponseEntity<ResponseStructure<Blog>> updateBlog(Blog blog){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ResponseStructure.createResponse(HttpStatus.OK.value(),"Blog updated for given id: "+blog.getId(),blogService.updateBlog(blog)));
+    }
+    @GetMapping("/blogs")
+    public ResponseEntity<ResponseStructure<List<Blog>>> findBlogs(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+        return ResponseEntity
+                .status(HttpStatus.FOUND)
+                .body(ResponseStructure.createResponse(HttpStatus.FOUND.value(),"Blogs found successfully",blogService.findBlogs(page, size)));
     }
 }
