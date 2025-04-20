@@ -21,7 +21,7 @@ public class Blog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(nullable = false)
     private String title;
@@ -30,12 +30,12 @@ public class Blog {
     @Column(nullable = false)
     private String content;
 
-    @JsonFormat(shape = Shape.STRING, pattern = "DD-MM-YY")
+    @JsonFormat(shape = Shape.STRING, pattern = "dd-MM-yyyy")
     @CreationTimestamp
     @Column(updatable = false)
     private Date createdAt;
 
-    @JsonFormat(shape = Shape.STRING, pattern = "DD-MM-YY")
+    @JsonFormat(shape = Shape.STRING, pattern = "dd-MM-yyyy")
     private Date updatedAt;
 
     @ManyToOne

@@ -1,0 +1,19 @@
+Spring:
+  #Application Properties
+  application:
+    name: blog-application
+
+  #Datasource Properties
+  datasource:
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/blog_application?createDatabaseIfNotExist=true}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:root}
+
+  #JPA Details
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+app:
+  client:
+    origin: ${CLIENT_ORIGIN:http://localhost:5173}

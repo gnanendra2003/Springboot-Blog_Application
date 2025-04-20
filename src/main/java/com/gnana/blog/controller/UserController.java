@@ -6,13 +6,14 @@ import com.gnana.blog.utility.ResponseStructure;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping("/register")
     public ResponseEntity<ResponseStructure<User>> registerUser(@RequestBody User user){
@@ -20,8 +21,8 @@ public class UserController {
                 "User created with email: "+user.getEmail(), userService.registerUser(user)));
     }
     @GetMapping("/users")
-    public ResponseEntity<ResponseStructure<User>> findByEmail(@RequestBody String email){
+    public ResponseEntity<ResponseStructure<User>> findByEmail(){
         return ResponseEntity.status(HttpStatus.FOUND).body(ResponseStructure.createResponse(HttpStatus.FOUND.value(),
-                "User found with email: "+email, userService.findByEmail(email)));
+                "User found with email: "+ SecurityContextHolder.getContext().getAuthentication().getName(), userService.findByEmail()));
     }
 }
