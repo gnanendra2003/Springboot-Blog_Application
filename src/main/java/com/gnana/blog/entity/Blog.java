@@ -27,7 +27,7 @@ public class Blog {
     private String title;
 
     @Lob
-    @Column(nullable = false)
+    @Column(columnDefinition = "LONGTEXT" ,nullable = false)
     private String content;
 
     @JsonFormat(shape = Shape.STRING, pattern = "dd-MM-yyyy")

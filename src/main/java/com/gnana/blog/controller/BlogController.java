@@ -57,7 +57,6 @@ public class BlogController {
     }
     @GetMapping("/users/blogs")
     public ResponseEntity<ResponseStructure<PageResponseWrapper<List<Blog>>>> findUserBlogs(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
-        log.info("finding user blogs");
         Page<Blog> pages = blogService.findUserBlogs(page, size);
         return ResponseEntity
                 .status(HttpStatus.OK)

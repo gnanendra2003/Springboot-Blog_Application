@@ -33,8 +33,9 @@ import java.io.IOException;
 public class SecurityConfig {
     @Value("${app.client.origin}")
     public String clientOrigin;
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -50,6 +51,8 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login")
                         .successHandler(this::successHandler)
                         .failureHandler(this::failureHandler))
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(this::unauthorizedHandler))
                 .build();
     }
 
@@ -64,6 +67,14 @@ public class SecurityConfig {
     private void successHandler(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         ResponseStructure<Object> responseBody = ResponseStructure.createResponse(HttpStatus.OK.value(),"Login Successful.",authentication.getPrincipal());
         writeJsonResponse(response, responseBody, HttpStatus.OK);
+    }
+
+    private void unauthorizedHandler(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
+        ErrorStructure error = new ErrorStructure();
+        error.setStatus(HttpStatus.UNAUTHORIZED.value());
+        error.setMessage("Unauthorized: Please log in first.");
+
+        writeJsonResponse(response, error, HttpStatus.UNAUTHORIZED);
     }
 
     private <T> void writeJsonResponse(HttpServletResponse response, T body, HttpStatus status) throws IOException {
