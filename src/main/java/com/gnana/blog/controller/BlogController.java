@@ -5,6 +5,7 @@ import com.gnana.blog.service.BlogService;
 import com.gnana.blog.utility.PageResponseWrapper;
 import com.gnana.blog.utility.ResponseStructure;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@Slf4j
 public class BlogController {
     private final BlogService blogService;
 
@@ -26,8 +28,8 @@ public class BlogController {
     @GetMapping("/blogs/{id}")
     public ResponseEntity<ResponseStructure<Blog>> getBlogById(@PathVariable Long id){
         return ResponseEntity
-                .status(HttpStatus.FOUND)
-                .body(ResponseStructure.createResponse(HttpStatus.FOUND.value(),"Product found for id: "+id,blogService.getBlogById(id)));
+                .status(HttpStatus.OK)
+                .body(ResponseStructure.createResponse(HttpStatus.OK.value(),"Product found for id: "+id,blogService.getBlogById(id)));
     }
     @PostMapping("/blogs/create")
     public ResponseEntity<ResponseStructure<Blog>> createBlog(@RequestBody Blog blog){
@@ -50,7 +52,15 @@ public class BlogController {
     public ResponseEntity<ResponseStructure<PageResponseWrapper<List<Blog>>>> findBlogs(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
         Page<Blog> pages = blogService.findBlogs(page, size);
         return ResponseEntity
-                .status(HttpStatus.FOUND)
-                .body(ResponseStructure.createResponse(HttpStatus.FOUND.value(),"Blogs found successfully",PageResponseWrapper.pageResponseWrapper(page,size,pages.getTotalPages(),pages.toList())));
+                .status(HttpStatus.OK)
+                .body(ResponseStructure.createResponse(HttpStatus.OK.value(),"Blogs found successfully",PageResponseWrapper.pageResponseWrapper(page,size,pages.getTotalPages(),pages.toList())));
+    }
+    @GetMapping("/users/blogs")
+    public ResponseEntity<ResponseStructure<PageResponseWrapper<List<Blog>>>> findUserBlogs(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+        log.info("finding user blogs");
+        Page<Blog> pages = blogService.findUserBlogs(page, size);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseStructure.createResponse(HttpStatus.OK.value(),"Blogs found successfully",PageResponseWrapper.pageResponseWrapper(page,size,pages.getTotalPages(),pages.toList())));
     }
 }

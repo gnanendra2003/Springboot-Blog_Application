@@ -16,4 +16,4 @@ Spring:
       ddl-auto: update
 app:
   client:
-    origin: ${CLIENT_ORIGIN:http://localhost:5173}
+    origin: ${CLIENT_ORIGIN:http://localhost:5173/}

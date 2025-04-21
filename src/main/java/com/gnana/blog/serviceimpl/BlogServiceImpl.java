@@ -60,6 +60,13 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Page<Blog> findUserBlogs(int page, int size) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Pageable pageable = PageRequest.of(page, size);
+        return blogRepository.findByUserEmail(email, pageable);
+    }
+
+    @Override
     public Blog deleteBlog(long id) {
         return blogRepository.findById(id).map(blog -> {
             blogRepository.delete(blog);
@@ -67,5 +74,6 @@ public class BlogServiceImpl implements BlogService {
         }).orElseThrow(()->new BlogNotFoundException("Blog not found by id: "+id));
 
     }
+
 
 }

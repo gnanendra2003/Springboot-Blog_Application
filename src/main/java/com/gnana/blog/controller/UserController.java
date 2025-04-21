@@ -22,7 +22,7 @@ public class UserController {
     }
     @GetMapping("/users")
     public ResponseEntity<ResponseStructure<User>> findByEmail(){
-        return ResponseEntity.status(HttpStatus.FOUND).body(ResponseStructure.createResponse(HttpStatus.FOUND.value(),
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseStructure.createResponse(HttpStatus.OK.value(),
                 "User found with email: "+ SecurityContextHolder.getContext().getAuthentication().getName(), userService.findByEmail()));
     }
 }

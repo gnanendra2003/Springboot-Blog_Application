@@ -13,4 +13,5 @@ public interface BlogService {
     Blog deleteBlog(long id);
     Blog updateBlog(Blog blog,long id);
     Page<Blog> findBlogs(int page, int size);
+    Page<Blog> findUserBlogs(int page, int size);
 }
